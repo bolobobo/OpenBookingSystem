@@ -1,0 +1,13 @@
+application: open-booking-system
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+# [START handlers]
+handlers:
+- url: /static
+  static_dir: static
+- url: /.*
+  script: webapp.app
+# [END handlers]
