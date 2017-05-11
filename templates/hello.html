@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Sample</title>
+</head>
+<body>
+<!--test if-->
+{% if name and name =='admin' %}
+  <h1>This is admin console</h1>
+{% elif name %}
+<!--test escape-->
+{% autoescape false %}
+  <h1>Hello {{ name }} !</h1>
+{% endautoescape %}
+{% else %}
+  <h1>Hello World!</h1>
+  <p>lalala, {{good}}</p>
+{% endif %}
+
+<!--test----------for---------------- -->
+{% for digit in digits %}
+{{digit}}
+{% endfor %}
+
+
+<!--test ------------------------------raw-->
+{% raw %}
+  <ul>
+  {% for item in items %}
+    <li>{{ item }}</li>
+  {% endfor %}
+  </ul>
+{% endraw %}
+
+<!--test set variables-->
+{% set itemnums = [[1,2],[3,4,5]] %}
+
+<ul>
+{% for item in itemnums %}
+  <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<!--test do which is an operation, must add the jinja2 extension in the app.py-->
+{% with arr = ['Sunny'] %}
+ {% do arr.append('Rainy') %}
+ {{ arr }}
+{% endwith %}>
+
+<!--test context-->
+<p>xixixixixi</p>
+<p>{{request.url}} </p>
+
+<p>Host: {{ config.DEBUG }}</p>
+
+</body>
+</html>
