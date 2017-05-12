@@ -10,7 +10,16 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "hello"
+    user = users.get_current_user()
+    if user:
+        nickname = user.nickname()
+        logout_url = users.create_logout_url('/')
+        print user.user_id()
+        return render_template("logout.html", logout_url=logout_url)
+    else:
+        login_url = users.create_login_url('/')
+        #return "hello login"
+        return render_template("login.html", login_url=login_url)
 
 @app.route('/test')
 def test():
@@ -44,14 +53,23 @@ def test():
     # print Resource.get_available_time(5047308127305728)
 
     # ------------test time sort
-    resources = Resource.query().fetch()
-    print resources[1].start_time.hour
-    times = [] 
-    for e in resources:
-        times.append([e.start_time.hour+e.start_time.minute/60.0, e.end_time.hour+e.end_time.minute/60.0])
-    times.sort()
-    print times
+    # resources = Resource.query().fetch()
+    # print resources[1].start_time.hour
+    # times = [] 
+    # for e in resources:
+    #     times.append([e.start_time.hour+e.start_time.minute/60.0, e.end_time.hour+e.end_time.minute/60.0])
+    # times.sort()
+    # print times
 
+    # ------------test query and
+    l_r = Resource.query(Resource.owner_id == 399, Resource.name == "bottle").fetch()
+
+    print l_r[0].start_time.hour
+
+    # ------------test query datetime
+    # l_r = Resource.query(Resource.start_time.date == 1).fetch()
+
+    # print l_r
     return "hello"
 
 
