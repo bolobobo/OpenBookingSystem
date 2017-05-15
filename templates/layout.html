@@ -30,45 +30,34 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" class="active"><a href="/">Home</a></li>
-                <li role="presentation"><a href="#">Sign In</a></li>
+                <li role="presentation"><a href="/create">Create a Resouce</a></li>
+                <li role="presentation"><a href="{{log_url}}">{{log_status}}</a></li>
                 <li role="presentation"><a href="#">Info</a></li>
             </ul>
         </nav>
         <h3 class="text-muted">Open Booking System</h3>
     </div>
 </div>
+
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <h2>My Reservation</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p>
-                <a class="btn btn-primary" href="#" role="button"></a>
-            </p>
+    <!--<div class="row head">
+        <div class="col-lg-12">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="input the resouce tag: Table, Place">
+                <span class="input-group-btn">
+                    <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h2>My Reservation</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-        <div class="col-md-4">
-            <h2>My Reservation</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <h2>My Reservation</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-        <div class="col-md-4">
-            <h2>My Reservation</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-        <div class="col-md-4">
-            <h2>My Reservation</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-    </div>
+    </div>-->
+
+    {% block body %}<!-- block meta -->{% endblock%}
+
+    <footer class="footer">
+        <p>&copy; Copyright - Jiaqi Guan - 2017</p>
+    </footer>
 </div>
+
 </body>
 </html>

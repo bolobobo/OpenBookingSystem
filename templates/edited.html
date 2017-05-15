@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Cancel Information{% endblock %}
+
+{% block head%}
+{% endblock %}
+
+{% block body %}
+{% if cancel_success %}
+    <div class="alert alert-success" role="alert">
+        <strong>Well done!</strong> You successfully edited this reservation.
+    </div>
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> You don't have the authority to edit it.
+    </div>
+{% endif %}
+
+{% endblock %}

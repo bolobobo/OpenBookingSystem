@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+
+{% block title %}Create a Resouce in Open Booking System{% endblock %}
+
+{% block head%}
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block body %}
+<br/>
+
+{% if log_status=="Sign In" %}
+<div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> If you want to create a resource, you should log in first.
+</div>
+{% elif create_status %}
+<div class="alert alert-success" role="alert">
+    <strong>Well done!</strong> You successfully create this useful resource.
+</div>
+{% else %}
+<form class="form-horizontal" role="form" action="/created" method="POST">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Resource Name</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="firstname" name="name" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Start Time</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" placeholder="input the hour 0~23" name="start_hour" pattern="[0-2]{0,1}[0-9]" required>
+        </div>
+        <div class="col-sm-4">
+            <label class="checkbox-inline">
+                <input type="radio" name="start_minute" id="optionsRadios3" value="0" checked> : 00
+            </label>
+            <label class="checkbox-inline">
+                <input type="radio" name="start_minute" id="optionsRadios4"  value="30"> : 30
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">End Time</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" placeholder="input the hour 0~23 and larger than start time" name="end_hour" pattern="[0-2]{0,1}[0-9]" required>
+        </div>
+        <div class="col-sm-4">
+            <label class="checkbox-inline">
+                <input type="radio" name="end_minute" id="optionsRadios3" value="0" checked> : 00
+            </label>
+            <label class="checkbox-inline">
+                <input type="radio" name="end_minute" id="optionsRadios4"  value="30"> : 30
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Tags</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" placeholder="nput tags delimited by ;" name="tags">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+            <button type="submit" class="btn btn-default">submit</button>
+        </div>
+    </div>
+</form>
+{% endif %}
+{% endblock %}

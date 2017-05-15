@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+{% raw %}
+<resource>  
+    <name>{{name}}</name>
+    <starttime>{{start_time}}</starttime>
+    <endtime>{{end_time}}</endtime>
+    <tags>{{tags}}</tags>
+    <url>/rss/{{resource_id}}</url>
+    <reservation>
+    {% for rev in reservations %}
+    <item>
+    <item_id>rev.</item_id>
+    <user_id>rev.user_id</user_id>
+    <date>rev.date</date>
+    <start_time>rev.start_time</start_time>
+    <end_time>rev.end_time</end_time>
+    <current>rev.valid</current>
+    </item>
+    {% endfor %}
+    </reservation>
+</resource>
+</rss>
+{% endraw %}

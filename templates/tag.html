@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block title %}Resources in {{tag}}####{% endblock %}
+
+{% block head%}
+{% endblock %}
+
+{% block body %}
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			Resources in {{tag}}
+		</h3>
+	</div>
+    <div class="panel-body">
+    {% for ar in all_resources %}
+    <div class="row">
+        <div class="col-md-9">
+            <h4><a href="/resource/{{ar.key.id()}}">{{ar.name}}</a></h4>
+            <p><strong>Start Time:&nbsp;&nbsp;</strong>{{ar.start_time}}<p>
+            <p><strong>End &nbsp;Time:&nbsp;&nbsp;</strong>{{ar.end_time}}<p>
+            <p><strong>Tags:&nbsp;&nbsp;</strong>
+                {% for at in ar.tags %}
+                <a href="/tag/{{at}}">{{at}}</a>
+                &nbsp;&nbsp;
+                {% endfor %}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <br/>
+            <p><a class="btn btn-info" href="/resource/{{ar.key.id()}}" role="button">Reserve</a></p>
+        </div>
+    </div>
+    <hr />
+    {% endfor %}
+</div>
+</div>
+
+{% endblock %}

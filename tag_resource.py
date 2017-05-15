@@ -14,9 +14,7 @@ class TagResource(ndb.Model):
     @classmethod
     def create_tag_resource(cls, resource_id, parent_key):
         '''create a tag_resource, the key is the combination of tag and resource id'''
-        res = TagResource()
-        res.key = ndb.Key(resource_id, parent=parent_key)
-        res.resource_id = resource_id
+        res = TagResource(resource_id=resource_id, parent=parent_key)
         res.put()
 
     @classmethod
@@ -31,12 +29,9 @@ class TagResource(ndb.Model):
         # todo: order by resource counts: cls.query(ancestor=ancestor_key).order(-cls.date)
         #ancestor_key = ndb.Key('Tags', tag)
         # return the Query object
-        return cls.query(ancestor=ancestor_key).fetch()
-
-
-
-
-    # @classmethod
-    # def query_top_tags(cls):
-    #     print cls.query().fetch()
+        entities = cls.query(ancestor=ancestor_key).fetch()
+        resources = []
+        for e in entities:
+            resources.append(ndb.Key("Resource", e.resource_id).get())
+        return resources
 

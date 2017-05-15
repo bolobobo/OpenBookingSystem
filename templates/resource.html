@@ -1,0 +1,157 @@
+{% extends 'layout.html' %}
+
+{% block title %}Resource{% endblock %}
+
+{% block head%}
+    <link href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/twitter-bootstrap/2.2.2/bootstrap.min.js"></script>
+    <script src="http://www.bootcss.com/p/bootstrap-datetimepicker/js/holder/holder.js"></script>
+    <script src="http://cdn.bootcss.com/prettify/r224/prettify.js"></script>
+    <script src="http://www.bootcss.com/p/bootstrap-datetimepicker/js/application.js"></script>
+    <script src="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+{% endblock %}
+
+{% block body %}
+{% if revop_status %}
+
+    {% if log_status == "Sign In" %}
+    <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> If you want to reserve a resource, you should log in first.
+    </div>
+    {% elif invalid_rev_flag %}
+    <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> You can not reserve a resource which end time is before start time or in the past.
+    </div>
+    {% elif over_day_flag %}
+    <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> You can not reserve a resource over days.
+    </div>
+    {% elif rev_success_flag %}
+    <div class="alert alert-success" role="alert">
+        <strong>Well done!</strong> You successfully reserved this resource.
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> The time you choosed is not available.
+    </div>
+    {% endif %}
+{% else %}
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Resource Description
+        </h3>
+    </div>
+
+    {% if log_status == "Log Out" and owner_flag %}
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>{{name}}</h4>
+                <p><strong>Start Time:&nbsp;&nbsp;</strong>{{start_time}}<p>
+                <p><strong>End &nbsp;Time:&nbsp;&nbsp;</strong>{{end_time}}<p>
+                <p><strong>Tags:&nbsp;&nbsp;</strong>
+                    {% for t in tags %}
+                    <a href="/tag/{{t}}">{{t}}</a>
+                    &nbsp;&nbsp;
+                    {% endfor %}
+                </p>
+                <p>&nbsp;<a href="/rss/{{resource_id}}">>>rss</a></p>
+                <p><a class="btn btn-info" href="/edit/{{resource_id}}" role="button">Edit</a></p>
+
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>{{name}}</h4>
+                <p><strong>Start Time:&nbsp;&nbsp;</strong>{{start_time}}<p>
+                <p><strong>End&nbsp;Time:&nbsp;&nbsp;</strong>{{end_time}}<p>
+                <p><strong>Tags:&nbsp;&nbsp;</strong>
+                    {% for t in tags %}
+                    <a href="/tag/{{t}}">{{t}}</a>
+                    &nbsp;&nbsp;
+                    {% endfor %}
+                </p>
+                <p>&nbsp;<a href="/rss/{{resource_id}}">>>rss</a></p>
+                <p><form class="form-horizontal" role="form" action="/reserved" method="POST">
+                    <div class="form-group">
+                        <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Start Time:
+                        <input size="16" type="text" value="2017-05-14 14:45" readonly class="form_datetime" name="reserve_start">
+                        <script type="text/javascript">
+                            $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+                            </script> 
+
+                        End Time:
+                        <input size="16" type="text" value="2017-05-14 14:45" readonly class="form_datetime" name="reserve_end">
+                        <script type="text/javascript">
+                            $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+                        </script>
+                        <input type="hidden" name="resource_id" value="{{resource_id}}">
+                        <button type="submit" class="btn btn-info">Reserve</button>
+                        </p>
+                    </div>
+                </form></p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    {% endif %}
+
+
+</div>
+
+
+{% endif %}
+
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			Upcoming Reservations
+		</h3>
+	</div>
+	<div class="panel-body">
+        {% for r in reservations %}
+		<div class="row">
+            <div class="col-md-9">
+                <p><strong>Reserved Time:&nbsp;&nbsp;</strong>{{r.start_time}}&nbsp;- &nbsp;{{r.end_time}}<p>
+            </div>
+		</div>
+        <hr />
+        {% endfor %}
+	</div>
+</div>
+
+
+{% endblock %}
+
+
+    <!--<div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>{{name}}</h4>
+                <p><strong>Start Time:&nbsp;&nbsp;</strong>{{start_time}}<p>
+                <p><strong>End &nbsp;Time:&nbsp;&nbsp;</strong>{{end_time}}<p>
+                <p><strong>Tags:&nbsp;&nbsp;</strong>
+                    {% for t in tags %}
+                    <a href="/tag/{{t}}">{{t}}</a>
+                    &nbsp;&nbsp;
+                    {% endfor %}
+                </p>
+                <p>&nbsp;<a href="/rss/{{resource_id}}">>>rss</a></p>
+            </div>
+        </div>
+    </div>-->

@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block title %}My Home Page{% endblock %}
+
+{% block head%}
+{% endblock %}
+
+{% block body %}
+{% if login_flag %}
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			My Reservation
+		</h3>
+	</div>
+	<div class="panel-body">
+        {% for r in reservations %}
+		<div class="row">
+            <div class="col-md-9">
+                <h4><a href="#">{{r.resource_name}}</a></h4>
+                <p><strong>Reserved Time:&nbsp;&nbsp;</strong>{{r.start_time}}&nbsp;- &nbsp;{{r.end_time}}<p>
+            </div>
+            <div class="col-md-3">
+                <br/>
+                <p><a class="btn btn-default" href="/cancel/{{r.key.id()}}" role="button">cancel</a></p>
+            </div>
+		</div>
+        <hr />
+        {% endfor %}
+	</div>
+</div>
+
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			My Resources
+		</h3>
+	</div>
+	<div class="panel-body">
+        {% if resources != None%}
+        {% for res in resources %}
+		<div class="row">
+            <div class="col-md-9">
+                <h4>{{res.name}}</h4>
+                <p><strong>Start Time:&nbsp;&nbsp;</strong>{{res.start_time}}<p>
+                <p><strong>End &nbsp;Time:&nbsp;&nbsp;</strong>{{res.end_time}}<p>
+                <p><strong>Tags:&nbsp;&nbsp;</strong>
+                    {% for t in res.tags %}
+                    <a href="/tag/{{t}}">{{t}}</a>
+                    &nbsp;&nbsp;
+                    {% endfor %}
+                </p>
+                <!--<h4><a href="#">{{resource_name}}resourcename</a></h4>
+                <p><strong>Available time:</strong>{{start_time}}&nbsp;- &nbsp;{{end_time}}<p>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus </p>-->
+            </div>
+            <div class="col-md-3">
+                <br/>
+                <p><a class="btn btn-info" href="/resource/{{res.key.id()}}" role="button">edit</a></p>
+            </div>
+		</div>
+        <hr />
+        {% endfor %}
+        {% else %}
+        <p>No resource yet.</p>
+        {% endif %}
+	</div>
+</div>
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> Please log in, then you will get what you want.
+    </div>
+{% endif %}
+
+{% endblock %}

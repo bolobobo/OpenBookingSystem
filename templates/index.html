@@ -1,25 +1,116 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
-    <meta name="description" content="A booking system, you can reserve and post resource in this website.">   
-    <title>Open Booking System</title>
-    
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main.css')}}">
-    <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/semantic.min.css')}}">
-    <script type="text/javascript" src="{{url_for('static', filename='css/semantic.min.js')}}" charset="utf-8"></script>-->
-</head>
+{% extends 'layout.html' %}
 
-<body>
-    <div id="searchArea" style="position: absolute; top: 10%; width: 90%; height: 80%; margin-left: 5%" >
+{% block title %}Home{% endblock %}
 
+{% block head%}
+    <link href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/twitter-bootstrap/2.2.2/bootstrap.min.js"></script>
+    <script src="http://www.bootcss.com/p/bootstrap-datetimepicker/js/holder/holder.js"></script>
+    <script src="http://cdn.bootcss.com/prettify/r224/prettify.js"></script>
+    <script src="http://www.bootcss.com/p/bootstrap-datetimepicker/js/application.js"></script>
+    <script src="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class="row head">
+    <div class="col-lg-12">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="input the resouce tag: Table, Place">
+            <span class="input-group-btn">
+                <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+        </div>
     </div>
-    
-    <div>
-    </div>
+</div>
 
-</body>
-</html>
+<br/>
+{% if login_flag %}
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			My Reservation
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+            {% for r in reservations %}
+            <div class="col-md-4">
+                <h2><a href="{{url_for('resource_exhibit', resource_id=r.resource_id)}}">{{r.resource_name}}</a></h2>
+                <ul>
+                    <li>{{r.start_time}}</li>
+                    <li>{{r.end_time}}</li>
+                </ul>
+                <form >
+                <p><a class="btn btn-default" href="/cancel/{{r.key.id()}}" role="button">cancel</a></p>
+                </form>
+            </div>
+            {% endfor %}  
+		</div>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/user">view all</a></p>
+	</div>
+</div>
+
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			My Resources
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+            {% for res in resources[:3] %}
+            <div class="col-md-4">
+                <h4><a href="resource/{{res.key.id()}}">{{res.name}}</a></h4>
+                <p><strong>Start Time:&nbsp;&nbsp;</strong>{{res.start_time}}<p>
+                <p><strong>End &nbsp;Time:&nbsp;&nbsp;</strong>{{res.end_time}}<p>
+                <p><strong>Tags:&nbsp;&nbsp;</strong>
+                    {% for t in res.tags %}
+                    <a href="/tag/{{t}}">{{t}}</a>
+                    &nbsp;&nbsp;
+                    {% endfor %}
+                </p>
+            </div>
+            {% endfor %}
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/user">view all</a></p>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			All Resources
+		</h3>
+	</div>
+    <div class="panel-body">
+        {% for ar in all_resources %}
+        <div class="row">
+            <div class="col-md-9">
+                <h4><a href="resource/{{ar.key.id()}}">{{ar.name}}</a></h4>
+                <p><strong>Start Time:&nbsp;&nbsp;</strong>{{ar.start_time}}<p>
+                <p><strong>End &nbsp;Time:&nbsp;&nbsp;</strong>{{ar.end_time}}<p>
+                <p><strong>Tags:&nbsp;&nbsp;</strong>
+                    {% for at in ar.tags %}
+                    <a href="/tag/{{at}}">{{at}}</a>
+                    &nbsp;&nbsp;
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="col-md-3">
+                <br/>
+                <p><a class="btn btn-info" href="/resource/{{ar.key.id()}}" role="button">edit</a></p>
+            </div>
+        </div>
+        <hr />
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}
