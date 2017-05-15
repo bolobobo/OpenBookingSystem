@@ -233,6 +233,10 @@ def generate_rss(resource_id):
     reservations = Reservation.get_reservations_for_resource(int(resource_id))
     return render_template("rss.xml", name=name, start_time=res.start_time,end_time=res.end_time,tags=';'.join(res.tags), resource_id=resource_id,reservations=reservations)
 
+@app.route('/info')
+def info():
+    return render_template("info.html")
+
 @app.route('/test')
 def test():
     # ------------basic:create Resource
