@@ -1,5 +1,5 @@
 # ReservationSystem
-This repository serves for the final project of Open Source Tool course. The project is to develop an online reserving platform similar to open table using open source tools. The technology we used for now is as below but not limit to: Google App Engine, Github, Python, Jinja2,Flask. This project is deployed here at 
+This repository serves for the final project of Open Source Tool course. The project is to develop an online reserving platform similar to open table using open source tools. The technology we used for now is as below but not limit to: Google App Engine, Github, Python, Jinja2,Flask. This project is deployed here at open-booking-system.appspot.com.
 
 * The open booking system have following features, besides user login:
 
